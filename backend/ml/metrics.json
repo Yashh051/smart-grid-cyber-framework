@@ -1,0 +1,160 @@
+{
+  "overall": {
+    "accuracy": 0.9997,
+    "precision": 0.9997,
+    "recall": 0.9997,
+    "f1_score": 0.9997,
+    "total_test_samples": 3600
+  },
+  "confusion_matrix": [
+    [
+      1800,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      1,
+      539,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      540,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      360,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      360
+    ]
+  ],
+  "class_report": {
+    "Normal": {
+      "precision": 0.9994447529150472,
+      "recall": 1.0,
+      "f1-score": 0.9997222993612885,
+      "support": 1800.0
+    },
+    "False Data Injection (FDIA)": {
+      "precision": 1.0,
+      "recall": 0.9981481481481481,
+      "f1-score": 0.9990732159406858,
+      "support": 540.0
+    },
+    "DDoS Telemetry Flood": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 540.0
+    },
+    "Command Injection (Breaker Trip)": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 360.0
+    },
+    "Replay Attack": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 360.0
+    },
+    "accuracy": 0.9997222222222222,
+    "macro avg": {
+      "precision": 0.9998889505830094,
+      "recall": 0.9996296296296296,
+      "f1-score": 0.999759103060395,
+      "support": 3600.0
+    },
+    "weighted avg": {
+      "precision": 0.9997223764575236,
+      "recall": 0.9997222222222222,
+      "f1-score": 0.9997221320717472,
+      "support": 3600.0
+    }
+  },
+  "top_features": [
+    {
+      "feature": "scada_packet_rate",
+      "importance": 0.12732129986582952
+    },
+    {
+      "feature": "pmu_latency_ms",
+      "importance": 0.10290994844491971
+    },
+    {
+      "feature": "bus_4_voltage",
+      "importance": 0.07643095670297277
+    },
+    {
+      "feature": "grid_frequency",
+      "importance": 0.060489218959447054
+    },
+    {
+      "feature": "bus_3_p",
+      "importance": 0.053343307934718406
+    },
+    {
+      "feature": "bus_9_voltage",
+      "importance": 0.051700609136436586
+    },
+    {
+      "feature": "bus_5_voltage",
+      "importance": 0.05138474895212704
+    },
+    {
+      "feature": "bus_4_q",
+      "importance": 0.033100432469288725
+    },
+    {
+      "feature": "bus_10_voltage",
+      "importance": 0.031502534327801916
+    },
+    {
+      "feature": "bus_10_p",
+      "importance": 0.03143405333701462
+    },
+    {
+      "feature": "bus_14_p",
+      "importance": 0.027999169281442433
+    },
+    {
+      "feature": "bus_10_q",
+      "importance": 0.027397821072485475
+    },
+    {
+      "feature": "bus_5_q",
+      "importance": 0.02652392622920611
+    },
+    {
+      "feature": "bus_14_q",
+      "importance": 0.026390286412575306
+    },
+    {
+      "feature": "bus_1_p",
+      "importance": 0.02515401139371394
+    }
+  ],
+  "classes": [
+    "Normal",
+    "False Data Injection (FDIA)",
+    "DDoS Telemetry Flood",
+    "Command Injection (Breaker Trip)",
+    "Replay Attack"
+  ]
+}

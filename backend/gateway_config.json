@@ -1,0 +1,8 @@
+{
+  "smtp_server": "smtp-relay.brevo.com",
+  "smtp_port": 587,
+  "smtp_username": "b84346001@smtp-brevo.com",
+  "smtp_password": "xsmtpsib-b91db2c9ebc196eb193d5c74a2aa51ed4dd6221c65d6a1bbe7165f84c7c62176-H7BA7XSLfknFUZBr",
+  "smtp_from_name": "SmartGrid Cyber SOC Defense Center",
+  "smtp_from_email": "yashgawade068@gmail.com"
+}
