@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from "./context/AuthContext";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 
+import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
@@ -21,7 +22,7 @@ function ProtectedLayout({ children, telemetryData, historyData, streamLogs, wsC
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   if (!user) {
-    return <Navigate to="/register" replace />;
+    return <Navigate to="/welcome" replace />;
   }
 
   return (
@@ -132,22 +133,29 @@ function MainApp() {
 
   return (
     <Routes>
+      {/* Public Landing & Authentication Routes */}
+      <Route path="/welcome" element={<Landing />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
 
+      {/* Protected Dashboard Routes */}
       <Route
         path="/"
         element={
-          <ProtectedLayout
-            telemetryData={telemetryData}
-            historyData={historyData}
-            streamLogs={streamLogs}
-            wsConnected={wsConnected}
-            incidentCount={incidentCount}
-          >
-            <Dashboard telemetryData={telemetryData} historyData={historyData} />
-          </ProtectedLayout>
+          user ? (
+            <ProtectedLayout
+              telemetryData={telemetryData}
+              historyData={historyData}
+              streamLogs={streamLogs}
+              wsConnected={wsConnected}
+              incidentCount={incidentCount}
+            >
+              <Dashboard telemetryData={telemetryData} historyData={historyData} />
+            </ProtectedLayout>
+          ) : (
+            <Landing />
+          )
         }
       />
 

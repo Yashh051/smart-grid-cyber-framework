@@ -2,7 +2,7 @@
  * ==============================================================================
  * PAGE: ForgotPassword.jsx (Account Recovery & Emergency OTP Dispatch)
  * PURPOSE: Allows operators to recover locked accounts or reset forgotten passwords
- *          via Official Email with automated OTP verification.
+ *          via Email or SMS Text Message with automated OTP verification.
  * PROJECT: AI-Based Smart Grid Cybersecurity Framework (TYCS Final Year Project)
  * ==============================================================================
  */
@@ -34,6 +34,7 @@ export default function ForgotPassword() {
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
   const [dispatchedData, setDispatchedData] = useState(null);
+  const [copied, setCopied] = useState(false);
 
   // Step 1: Request OTP via Official Email
   const handleRequestOtp = async (e) => {
@@ -59,6 +60,7 @@ export default function ForgotPassword() {
         throw new Error(data.detail || "Account recovery request failed.");
       }
       setDispatchedData(data);
+      // Keep OTP code empty so user must check their real Gmail inbox
       setOtpCode("");
       setStep(2);
     } catch (error) {
@@ -169,7 +171,7 @@ export default function ForgotPassword() {
           </form>
         )}
 
-        {/* STEP 2: Enter OTP & New Password */}
+        {/* STEP 2: Instruction Card (Check Gmail) + Enter OTP & New Password */}
         {step === 2 && dispatchedData && (
           <form onSubmit={handleResetPassword} autoComplete="off" className="space-y-4">
             
