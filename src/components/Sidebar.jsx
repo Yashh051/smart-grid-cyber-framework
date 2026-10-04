@@ -10,7 +10,7 @@ import {
   Zap,
 } from "lucide-react";
 
-export default function Sidebar({ incidentCount = 0 }) {
+export default function Sidebar({ incidentCount = 0, mobileOpen = false, onCloseMobile }) {
   const navItems = [
     { to: "/", label: "Grid Overview", icon: LayoutDashboard },
     { to: "/threat-console", label: "Real-Time Threat Console", icon: ShieldAlert },
@@ -21,39 +21,57 @@ export default function Sidebar({ incidentCount = 0 }) {
   ];
 
   return (
-    <aside className="w-64 bg-slate-900 border-r border-slate-800 flex flex-col justify-between shrink-0 min-h-[calc(100vh-4rem)]">
-      <div className="p-4 space-y-1">
-        <div className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-slate-500 font-mono">
-          Operations & Detection
+    <>
+      {/* Mobile Backdrop Overlay */}
+      {mobileOpen && (
+        <div
+          onClick={onCloseMobile}
+          className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-40 md:hidden transition-opacity"
+        />
+      )}
+
+      {/* Sidebar Content */}
+      <aside
+        className={`
+          fixed md:static top-16 bottom-0 left-0 z-50 w-64 bg-slate-900 border-r border-slate-800 flex flex-col justify-between shrink-0 h-[calc(100vh-4rem)] transition-transform duration-300 ease-in-out shadow-2xl md:shadow-none overflow-y-auto
+          ${mobileOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
+        `}
+      >
+        <div className="p-4 space-y-1">
+          <div className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-slate-500 font-mono">
+            Operations & Detection
+          </div>
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            return (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                end={item.to === "/"}
+                onClick={() => {
+                  if (onCloseMobile) onCloseMobile();
+                }}
+                className={({ isActive }) =>
+                  `flex items-center justify-between px-3 py-2.5 rounded text-sm font-medium transition ${
+                    isActive
+                      ? "bg-sky-950 text-sky-400 border border-sky-800/60"
+                      : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/60"
+                  }`
+                }
+              >
+                <div className="flex items-center space-x-3">
+                  <Icon className="w-4 h-4" />
+                  <span>{item.label}</span>
+                </div>
+                {item.badge > 0 ? (
+                  <span className="px-2 py-0.5 text-xs font-mono font-semibold bg-rose-950 text-rose-400 border border-rose-800 rounded-full">
+                    {item.badge}
+                  </span>
+                ) : null}
+              </NavLink>
+            );
+          })}
         </div>
-        {navItems.map((item) => {
-          const Icon = item.icon;
-          return (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              end={item.to === "/"}
-              className={({ isActive }) =>
-                `flex items-center justify-between px-3 py-2.5 rounded text-sm font-medium transition ${
-                  isActive
-                    ? "bg-sky-950 text-sky-400 border border-sky-800/60"
-                    : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/60"
-                }`
-              }
-            >
-              <div className="flex items-center space-x-3">
-                <Icon className="w-4 h-4" />
-                <span>{item.label}</span>
-              </div>
-              {item.badge > 0 ? (
-                <span className="px-2 py-0.5 text-xs font-mono font-semibold bg-rose-950 text-rose-400 border border-rose-800 rounded-full">
-                  {item.badge}
-                </span>
-              ) : null}
-            </NavLink>
-          );
-        })}
-      </div>
 
       {/* Grid Specification Footer */}
       <div className="p-4 border-t border-slate-800/80 bg-slate-950/40">
@@ -67,5 +85,6 @@ export default function Sidebar({ incidentCount = 0 }) {
         </div>
       </div>
     </aside>
+    </>
   );
 }

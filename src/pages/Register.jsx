@@ -34,11 +34,31 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLocalErr("");
-    if (!formData.username || !formData.email || !formData.password || !formData.full_name) {
-      setLocalErr("Please fill in all required fields (Full Name, Username, Email, Password).");
+    
+    // 1. Required field checks
+    if (!formData.full_name.trim() || !formData.username.trim() || !formData.email.trim() || !formData.password) {
+      setLocalErr("Please fill in all required fields (Full Name, Operator Username, Official Email, Password).");
       return;
     }
-    const res = await register(formData);
+
+    // 2. Strict standard email syntax validation
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(formData.email.trim())) {
+      setLocalErr("Please enter a valid official email address format (e.g. operator@smartgrid.org or yourname@gmail.com).");
+      return;
+    }
+
+    // 3. Minimum password length check
+    if (formData.password.length < 6) {
+      setLocalErr("Security Policy: Password must be at least 6 characters long.");
+      return;
+    }
+
+    const res = await register({
+      ...formData,
+      email: formData.email.trim().toLowerCase(),
+      username: formData.username.trim(),
+    });
     if (res.success) {
       navigate("/");
     }

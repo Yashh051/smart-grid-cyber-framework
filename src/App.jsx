@@ -18,6 +18,8 @@ import LoginWelcomeModal from "./components/LoginWelcomeModal";
 
 function ProtectedLayout({ children, telemetryData, historyData, streamLogs, wsConnected, incidentCount }) {
   const { user, token, API_BASE } = useAuth();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   if (!user) {
     return <Navigate to="/register" replace />;
   }
@@ -30,10 +32,18 @@ function ProtectedLayout({ children, telemetryData, historyData, streamLogs, wsC
       {/* 2. Global Cyber-Attack Pop-Up Alarm & Containment Modal */}
       <AttackAlertModal telemetryData={telemetryData} token={token} API_BASE={API_BASE} />
       
-      <Navbar wsConnected={wsConnected} />
+      <Navbar 
+        wsConnected={wsConnected} 
+        onToggleMobileMenu={() => setMobileMenuOpen(!mobileMenuOpen)} 
+        mobileMenuOpen={mobileMenuOpen} 
+      />
       <div className="flex flex-1">
-        <Sidebar incidentCount={incidentCount} />
-        <main className="flex-1 p-6 max-w-7xl mx-auto w-full overflow-y-auto">
+        <Sidebar 
+          incidentCount={incidentCount} 
+          mobileOpen={mobileMenuOpen} 
+          onCloseMobile={() => setMobileMenuOpen(false)} 
+        />
+        <main className="flex-1 p-3 md:p-6 max-w-7xl mx-auto w-full overflow-y-auto">
           {children}
         </main>
       </div>

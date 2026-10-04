@@ -192,16 +192,7 @@ export default function ForgotPassword() {
               </div>
 
               <div className="text-[11px] text-slate-400 space-y-1 pt-1 border-t border-slate-800">
-                {dispatchedData.email_delivery?.sent ? (
-                  <div className="p-2 rounded bg-emerald-950/60 border border-emerald-800/60 text-emerald-300 text-[11px]">
-                    ✓ Live email dispatched to <strong>{dispatchedData.recipient}</strong>! Please check your <strong>Gmail Inbox</strong> (and Spam/Junk folder).
-                  </div>
-                ) : (
-                  <div className="p-2 rounded bg-emerald-950/40 border border-emerald-800/40 text-emerald-300 text-[11px]">
-                    ✓ Verification OTP code generated for <strong>{dispatchedData.recipient}</strong>. Check your email inbox.
-                  </div>
-                )}
-                <p>• Enter the 6-digit code below to set your new password.</p>
+                <p>• Check your Gmail inbox for the 6-digit security code.</p>
                 <p className="text-amber-400/90 text-[10px]">• Token expires in 15 minutes.</p>
               </div>
             </div>

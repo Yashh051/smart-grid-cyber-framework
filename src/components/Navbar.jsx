@@ -1,8 +1,8 @@
-﻿import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
-import { Activity, ShieldCheck, User, LogOut, Radio } from "lucide-react";
+import { Activity, ShieldCheck, User, LogOut, Radio, Menu, X } from "lucide-react";
 
-export default function Navbar({ wsConnected }) {
+export default function Navbar({ wsConnected, onToggleMobileMenu, mobileMenuOpen }) {
   const { user, logout } = useAuth();
   const [timeStr, setTimeStr] = useState("");
 
@@ -17,18 +17,27 @@ export default function Navbar({ wsConnected }) {
   }, []);
 
   return (
-    <header className="h-16 bg-slate-900 border-b border-slate-800 px-6 flex items-center justify-between sticky top-0 z-30">
+    <header className="h-16 bg-slate-900 border-b border-slate-800 px-4 md:px-6 flex items-center justify-between sticky top-0 z-40">
       {/* Title & Brand */}
       <div className="flex items-center space-x-3">
-        <div className="w-9 h-9 rounded bg-sky-600/20 border border-sky-500/40 flex items-center justify-center text-sky-400 font-semibold">
+        {user && (
+          <button
+            onClick={onToggleMobileMenu}
+            className="p-1.5 rounded-md bg-slate-800 text-slate-300 hover:text-white md:hidden focus:outline-none"
+            title="Toggle Navigation Menu"
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5 text-rose-400" /> : <Menu className="w-5 h-5 text-sky-400" />}
+          </button>
+        )}
+        <div className="w-8 h-8 md:w-9 md:h-9 rounded bg-sky-600/20 border border-sky-500/40 flex items-center justify-center text-sky-400 font-semibold shrink-0">
           <Activity className="w-5 h-5" />
         </div>
         <div>
-          <h1 className="text-base font-semibold text-slate-100 leading-none">
+          <h1 className="text-sm md:text-base font-semibold text-slate-100 leading-none">
             SmartGrid CyberDefense
           </h1>
-          <p className="text-xs text-slate-400 mt-1 font-mono">
-            IEEE-14 SCADA/PMU Intrusion Detection Platform
+          <p className="text-[10px] md:text-xs text-slate-400 mt-1 font-mono">
+            IEEE-14 SCADA/PMU Intrusion Platform
           </p>
         </div>
       </div>
